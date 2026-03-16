@@ -5,7 +5,7 @@ SHA256:  8203C2F00ECD3AE960CB3247A7D7BFB35E55C38939607C85DBDB5C92F0495FA9
 Babuk is a well known ransomware as-a-service, having mostly targeted large enterprises and governments. 
 
 ## Quick PE analysis 
-Opening the file in pestudio we can see a bunch of suspicious imports: 
+Opening the file in pestudio we can see a bunch of suspicious imports:  
 ![Imports](imports.png)  
 The ones that really catch my eye are: **WriteFile, ShellExecuteW, WNetGetConnection** and **OpenSCManagerA**.
 
