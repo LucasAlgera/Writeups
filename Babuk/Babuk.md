@@ -1,6 +1,7 @@
 # Babuk - Ransomware
 
-SHA256:  8203C2F00ECD3AE960CB3247A7D7BFB35E55C38939607C85DBDB5C92F0495FA9
+SHA256:  8203C2F00ECD3AE960CB3247A7D7BFB35E55C38939607C85DBDB5C92F0495FA9  
+TOR adress: babukq4e2p4wu4iq.onion/login.php?id=8M68J4vCbbkKgM6QnA07E9qpkn8QK7
 
 Babuk is a well known ransomware as-a-service, having mostly targeted large enterprises and governments. 
 
@@ -15,6 +16,8 @@ Next to this we also see the names of popular browsers such as Chrome and Brave.
 
 We also see their README message to the victim:   
 ![Message](message.png)
+
+An interesting addres to note down is `http://babukq4e2p4wu4iq.onion/login.php?id=8M68J4vCbbkKgM6QnA07E9qpkn8QK7`. This is likely where they will ask the victim to pay them a certain amount (in crypto) to decrypt the files.
 
 An interesting string I saw was `APPDATA`, the attacker might be searching for/spawning something in this folder.
 
