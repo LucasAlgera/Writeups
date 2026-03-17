@@ -48,8 +48,8 @@ At some point the malware creates a file called "ecdh_pub_k.bin" inside of the A
 
 ### 6. The encryption
 The malware first scans for all available drives in the system. It will spawn 1 thread per drive which handles both the encryption of all the files and the creation of the README file. If there is a network drive detected it get its path by using WNetGetConnectionW.   
-The files are all encrypted and get a **.__NIST_K571__** file extension.
-
+The files are all encrypted and get a **.__NIST_K571__** file extension.  
+Nist K571 is , according to the [Standard curve database](https://std.neuromancer.sk/nist/K-571.), a 571-bit binary field Weierstrass curve also known as the Koblitz curve. This curve is used a lot in elliptic curve cryptography (ECC), which the attackers probably also use for their encryption. 
 ## Some dynamic analysis
 When we let the program run in a debugger we can see as soon as WriteFile is called that a new file spawns in APPDATA/Roaming. This is our earlier spotted ecdh_pub_k.bin. I suspect that these may be the decryption keys stored on our local machine. In total 144 bytes are written to this file.   
 ![Keys](key.png)  
