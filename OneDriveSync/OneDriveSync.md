@@ -145,7 +145,7 @@ The malware compares the strings from the command and then decides what to run. 
 *Note: These are my conclusions for the actual behavior. There is a lot of code and it would take a while to understand every single functionality. So this is a prediction based on their name + functions that are present in the code.*
 
 ### Server address
-A server address that kept coming up when debugging networking function calls was `130.12.180.28`. It looks like the malware kept trying to send requests to this address. Looking at this ip 
+A server address that kept coming up when debugging networking function calls was `130.12.180.28`. It looks like the malware kept trying to send requests to this address. 
 
 Looking at the IP address on abuseipdb.com (https://www.abuseipdb.com/check/130.12.180.28) we see that it has been flagged multiple times by other people reporting it for hacking, spam and being a C2 beacon. The IP address's location switches from site to site with some being in Germany and others saying it's in The Netherlands in North-Holland. 
 
