@@ -16,6 +16,8 @@ File paths: AppData\Local\Microsoft\OneDrive\OneDriveSync.exe
 |T1036 | Masquerading the PEB | 
 | T1547.001 | Registry Run Keys |
 | T1102  | C2 and blockchain |
+| T1070.006 | Indicator Removal: Timestomping (copying notepad.exe's file time)|
+| T1564.004 | Hide Artifacts: NTFS File Attributes (desktop.ini:SyncData ADS stream)|
 
 
 ## Initial analysis
@@ -119,7 +121,8 @@ After succeeding it will turn off all of these registry values which protect the
 In order to keep running, even when the user closes their PC, the malware does the following. 
 - Puts itself (OneDriveSync.exe) inside of the `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` registry, where it calls itself: MicrosoftEdgeUpdateSvc. 
 - Puts itself (OneDriveSync.exe) inside of the `HKCU\Environment\UserInitMprLogonScript` registry, where again it calls itself: MicrosoftEdgeUpdateSvc.
-- Adds itself as a startup app  ![alt text](image-13.png)
+- Adds itself as a startup app   
+![alt text](image-13.png)
 
 ## The Logic/payload
 
@@ -161,7 +164,7 @@ Inside of the thread that launches the command resolving thread, there is a piec
 9. 1rpc.io/matic
 10. polygon-mainnet.public.blastapi.io
 
-I knew these were block chain crypto infrastructures, but why the malware tried to connect to these addresses I did not know. And I was a bit puzzled.  
+I knew these were block chain crypto infrastructures, but why the malware tried to connect to these addresses I did not know. I was a bit puzzled.  
 I decided to ask AI's (claude) help on this since this is very uncharted territory for me. 
 According to Claude it's purpose is: 
 ``` 
@@ -169,3 +172,11 @@ When the primary C2 is unreachable (3 consecutive beacon failures), this functio
 ```
 
 This makes quite a lot of sense. This also makes me think this is not only a RAT but it could also be a botnet. Because the only reason I can think of why the attacker puts this much effort in keeping in touch with it's victims is if they're needed for some botnet attack. 
+
+
+## Final verdict
+I think with everything that I found I can say that I have been dealing with some type of RAT (Remote Access Trojan). The way it tries to disguise itself and it's need for persistence tell me it's some type of Trojan. The Remote Access part comes in when the malware tries to connect with the server. The options the malware gives the attacker makes this piece of malware capable to a lot of things. From info stealing to being apart of a botnet. 
+
+The reason I think it might also be MaaS(Malware as a Service) is because of it's use of ID's when sending HTTP requests. This could be an indicator that several others might be making use of the same functionality under different ID's.  
+I also find the malware to be quite clear for the attacker, with there being debug messages for example.  
+My final reason for it being MaaS is that the malware is quite broad. As said before it ranges from info stealing to having full botnet functionalities. It seems that this malware was not crafted for 1 single purpose but more to be as versatile as possible to attract more customers.  
