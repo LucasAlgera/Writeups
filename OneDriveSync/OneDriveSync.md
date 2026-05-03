@@ -126,7 +126,7 @@ In order to keep running, even when the user closes their PC, the malware does t
 
 ## The Logic/payload
 
-### RAT
+### RAT behavior
 The actual payload gets activated in a separate Thread. This thread handles some networking which looks like a C2 where the attacker can have direct communication with the malware on the victim's PC. An interesting function is some type of command handling thread which is ran after the malware got a response from the attacker's server.  
 The malware compares the strings from the command and then decides what to run. The malware offers 12 different functionalities:  
 - **"EXECUTE"**: Executes shell commands  
@@ -143,8 +143,6 @@ The malware compares the strings from the command and then decides what to run. 
 - **"KILL"**: Kill the malware
 
 *Note: These are my conclusions for the actual behavior. There is a lot of code and it would take a while to understand every single functionality. So this is a prediction based on their name + functions that are present in the code.*
-
-The reason I think this piece of malware is a RAT is because of it's C2 connection and 
 
 ### Server address
 A server address that kept coming up when debugging networking function calls was `130.12.180.28`. It looks like the malware kept trying to send requests to this address. Looking at this ip 
@@ -164,18 +162,16 @@ Inside of the thread that launches the command resolving thread, there is a piec
 9. 1rpc.io/matic
 10. polygon-mainnet.public.blastapi.io
 
-I knew these were block chain crypto infrastructures, but why the malware tried to connect to these addresses I did not know. I was a bit puzzled.  
-I decided to ask AI's (claude) help on this since this is very uncharted territory for me. 
-According to Claude it's purpose is: 
-``` 
-When the primary C2 is unreachable (3 consecutive beacon failures), this function retrieves a new C2 configuration from the Polygon blockchain via public RPC endpoints. The C2 address is stored on-chain in a smart contract, making it effectively uncensorable and impossible to take down through traditional domain seizure.
-```
+I knew these were blockchain crypto infrastructures, but why the malware tried to connect to these addresses I did not know. I was a bit puzzled.  
+After having done some research and having used AI for a bit to guide me in the right direction I concluded that this is a fallback mechanism.   
+Whenever the primary C2 is no longer reachable (has been taken down for example), the malware falls back to using a new configuration from the Polygon blockchain. Reason is because these C2 addresses are stored on a on-chain in a smart contract which makes them uncensorable and near impossible to take down. 
 
-This makes quite a lot of sense. This also makes me think this is not only a RAT but it could also be a botnet. Because the only reason I can think of why the attacker puts this much effort in keeping in touch with it's victims is if they're needed for some botnet attack. 
+This also makes me think this is not only a RAT but it could also be a botnet. Because the only reason I can think of why the attacker puts this much effort in keeping in touch with it's victims is if they're needed for some botnet attack. 
+
 
 
 ## Final verdict
-I think with everything that I found I can say that I have been dealing with some type of RAT (Remote Access Trojan). The way it tries to disguise itself and it's need for persistence tell me it's some type of Trojan. The Remote Access part comes in when the malware tries to connect with the server. The options the malware gives the attacker makes this piece of malware capable to a lot of things. From info stealing to being apart of a botnet. 
+I think with everything that I found I can say that I have been dealing with some type of RAT (Remote Access Trojan). The way it tries to disguise itself and it's need for persistence tell me it's some type of Trojan. The Remote Access part comes in when the malware tries to connect with the server. The options the malware gives the attacker makes this piece of malware capable to a lot of things. From info stealing to being a part of a botnet. 
 
 The reason I think it might also be MaaS(Malware as a Service) is because of it's use of ID's when sending HTTP requests. This could be an indicator that several others might be making use of the same functionality under different ID's.  
 I also find the malware to be quite clear for the attacker, with there being debug messages for example.  
