@@ -1,4 +1,4 @@
-## SmokeLoader's setup
+## SmokeLoader's Loading/Anti-Analysis
 
 SmokeLoader is a notorious modular downloader Trojan which has been active since 2011.  
 SmokeLoader is as a MaaS loader and eventually sets up a C2 inside of an injected thread in a legitimate software (explorer.exe).  
