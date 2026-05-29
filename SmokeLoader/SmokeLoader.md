@@ -1,8 +1,7 @@
-## SmokeLoader's setup
+## SmokeLoader's Loading/Anti-Analysis
 
-SmokeLoader is a notorious modular downloader Trojan which has been active since 2011.  
-SmokeLoader is as a MaaS loader and eventually sets up a C2 inside of an injected thread in a legitimate software (explorer.exe).  
-SmokeLoader is wellknown for its anti analysis capabilities, which is what I wanted to focus on in this analysis. 
+SmokeLoader is a notorious modular downloader Trojan which has been active since 2011. Smoke is as a MaaS loader and eventually sets up a C2 inside of an injected thread in a legitimate software (explorer.exe).  
+It is wellknown for its anti analysis capabilities, which is what I wanted to focus on in this analysis. 
 
 **MITRE ATT&CK mapping**
 | ID | Meaning |
