@@ -13,7 +13,6 @@ SmokeLoader is wellknown for its anti analysis capabilities, which is what I wan
 | T1027  | Code obfuscation |
 | T1055.003 | Process Injection: Thread Execution Hijacking |
 | T1497.001 | Virtualization/Sandbox Evasion: System Checks|
-| T1102  | C2 functionality |
 
 ## Static analysis
 Looking at SmokeLoader's IAT it looks like there aren't too many really interesting imports. There are a bunch of imports, none are too alarming so there might be some API resolving coming up.  
@@ -137,7 +136,7 @@ After the decrypted code is ran Smoke of course encrypts it again to stay as ste
 
 ### Anti Analysis Checks
 1. **OS Version Check:** SmokeLoader walks the PEB and accesses OSMajorVersion, it checks the version and the build. Smoke targets any windows version 7 > and build < 22000.
-2. **Debugger Check:** Using NtQueryInformationProcess with flags set to 0x7, Smoke is able to detect wether it's process is being run in a debugger. 
+2. **Debugger Check:** Using NtQueryInformationProcess with flags set to 0x7 (DebugPort), Smoke is able to detect wether it's process is being run in a debugger. 
 3. **SandBox/Anti Virus detection:** Going through the loaded module on the machine, SmokeLoader compares them to:
     - sbiedll → Sandboxie Environment
     - aswhook → Avast Anti-virus
